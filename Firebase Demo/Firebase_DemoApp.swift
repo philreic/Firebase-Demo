@@ -12,21 +12,68 @@ import Firebase
 struct Firebase_DemoApp: App {
     
     init() {
+        
         FirebaseApp.configure()
         
-        deletGameGenre()
+        // Get a reference to the database
         
-        func deletGameGenre() {
-            
-            let db = Firestore.firestore()
-            
-            let games = db.collection("games")
-            
-            let game = games.document("Super Mario World")
-            
-            game.updateData(["genre" : FieldValue.delete()])
-            
-        }
+        let db = Firestore.firestore()
+        
+        // Get a reference to the reservations collection
+        
+        let reservations = db.collection("reserbations")
+        
+    }
+        // Error Handling
+//        let doc = reservations.addDocument(data: [:]) {
+//            error in
+//
+//            // Check if there was an error
+//            // If there was, log it and return
+//            if let error = error {
+//
+//                // Do any other error handling
+//                print(error.localizedDescription)
+//
+//                // Otherwise, call succeded, do nothing
+//            }
+//            else {
+//
+//                // Call succeded
+//                return
+//            }
+//
+//        }
+//        // Try to delete the document
+//
+//        doc.delete { (error) in
+//            // Handle error
+//
+//        }
+//        doc.setData([:]) { (error) in
+//            // handle errors
+//
+//        }
+//        doc.updateData([: ]) { (error) in
+//
+//            // Handle error
+//
+//        }
+//    }
+        
+//        deletGameGenre()
+//
+//        func deletGameGenre() {
+//
+//            let db = Firestore.firestore()
+//
+//            let games = db.collection("games")
+//
+//            let game = games.document("Super Mario World")
+//
+//            game.updateData(["genre" : FieldValue.delete()])
+//
+//        }
         
         // Delet data
 //
@@ -66,7 +113,7 @@ struct Firebase_DemoApp: App {
 //        // Update instead of merge
 //        reservation.updateData(["people": 24])
 //
-    }
+//    }
     
     // Add new data
         
