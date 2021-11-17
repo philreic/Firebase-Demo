@@ -21,7 +21,52 @@ struct Firebase_DemoApp: App {
         
         // Get a reference to the reservations collection
         
-        let reservations = db.collection("reserbations")
+        let reservations = db.collection("reservations")
+        
+        // Get a document reference
+        
+        let document = reservations.document("test123")
+        
+        // Get the document's information from the database
+        document.getDocument { (docSnapshot,error) in
+            
+            // Check for an error and handle it appropriatly
+            if let error = error {
+                // Hnadle error
+                print(error.localizedDescription)
+                //
+            } else if let docSnapshot = docSnapshot {
+               print(docSnapshot.data())
+                print(docSnapshot.documentID)
+            } else {
+                // No data was returned handle it as needed
+            }
+        }
+       
+       // Get all document from a collection
+        reservations.getDocuments { (querySnapshot, error) in
+            // Check error
+            if let error = error {
+                // Handle error
+                
+            } else if let querySnapshot = querySnapshot {
+                
+                // Handle data
+                for doc in querySnapshot.documents {
+                   
+                    print(doc.documentID)
+                    
+                }
+                
+                
+            } else {
+                // No data was returned
+            }
+            
+            
+        }
+        
+        
         
     }
         // Error Handling
