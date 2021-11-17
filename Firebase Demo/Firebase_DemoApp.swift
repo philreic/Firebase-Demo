@@ -14,21 +14,47 @@ struct Firebase_DemoApp: App {
     init() {
         FirebaseApp.configure()
         
+        // Delet data
+        
         let db = Firestore.firestore()
         
-        let reservation = db.collection("reservations").document("test123")
+        let reservations = db.collection("reservations")
         
-        // Overwrite all data
+        // Adding dat for the testing
         
-//        reservation.setData(["name" : "Carol", "people": 24])
+//        reservations.addDocument(data: ["name": "Steve", "people" : 4])
+        reservations.addDocument(data: ["name": "Cathy", "people" : 8])
         
+        // Deleting data
+        
+        let reservation = reservations.addDocument(data: ["name": "Steve", "people" : 4])
+        // Delete a field from a document
+        
+        reservation.updateData(["people": FieldValue.delete()])
+        
+        // Delete a document
+        
+        reservation.delete()
+        
+        
+        // Change data
+//        let db = Firestore.firestore()
+//
+//        let reservation = db.collection("reservations").document("test123")
+//
+//        // Overwrite all data
+//
+////        reservation.setData(["name" : "Carol", "people": 24])
+//
         // Merge data only
 //        reservation.setData(["people": 24], merge: true)
+////
+//        // Update instead of merge
+//        reservation.updateData(["people": 24])
 //
-        // Update instead of merge
-        reservation.updateData(["people": 24])
-        
     }
+    
+    // Add new data
         
 //        makeReservation()
 //
