@@ -14,28 +14,42 @@ struct Firebase_DemoApp: App {
     init() {
         FirebaseApp.configure()
         
+        deletGameGenre()
+        
+        func deletGameGenre() {
+            
+            let db = Firestore.firestore()
+            
+            let games = db.collection("games")
+            
+            let game = games.document("Super Mario World")
+            
+            game.updateData(["genre" : FieldValue.delete()])
+            
+        }
+        
         // Delet data
-        
-        let db = Firestore.firestore()
-        
-        let reservations = db.collection("reservations")
-        
-        // Adding dat for the testing
-        
-//        reservations.addDocument(data: ["name": "Steve", "people" : 4])
-        reservations.addDocument(data: ["name": "Cathy", "people" : 8])
-        
-        // Deleting data
-        
-        let reservation = reservations.addDocument(data: ["name": "Steve", "people" : 4])
-        // Delete a field from a document
-        
-        reservation.updateData(["people": FieldValue.delete()])
-        
-        // Delete a document
-        
-        reservation.delete()
-        
+//
+//        let db = Firestore.firestore()
+//
+//        let reservations = db.collection("reservations")
+//
+//        // Adding dat for the testing
+//
+////        reservations.addDocument(data: ["name": "Steve", "people" : 4])
+//        reservations.addDocument(data: ["name": "Cathy", "people" : 8])
+//
+//        // Deleting data
+//
+//        let reservation = reservations.addDocument(data: ["name": "Steve", "people" : 4])
+//        // Delete a field from a document
+//
+//        reservation.updateData(["people": FieldValue.delete()])
+//
+//        // Delete a document
+//
+//        reservation.delete()
+//
         
         // Change data
 //        let db = Firestore.firestore()
