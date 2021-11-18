@@ -23,53 +23,78 @@ struct Firebase_DemoApp: App {
         
         let reservations = db.collection("reservations")
         
-        // Get a document reference
         
-        let document = reservations.document("test123")
+        // Query the database
         
-        // Listening to update
+        let query = reservations.whereField("name", in: ["Carol", "Dave"])
         
-        // Add a snapshot listener
-        
-        // Let listener1 and listener2 added  to be abel to remove them
-        
-        let listener1 = document.addSnapshotListener { (docSnapshot, error ) in
+        // Execute query
+        query.getDocuments { (querySnapshot, error) in
             
-            // Chcek for errors as with other static reading
+            // Check for errors like before
             
-            
-            // Data is recieved everytime there is change
-            
-            print(docSnapshot?.data())
-        }
-        // Add a listener the the reservations collection
-        
-        let listener2 = reservations.addSnapshotListener { (querySnapshot, error) in
-            
-            // Chcek for errors as with other static reading
-            
-            
-            // All Data is recieved everytime there is change
-            
-//            for doc in querySnapshot!.documents{
-//
-//                print(doc.data())
-                
-                // Only changed data recieved
-                for doc in querySnapshot!.documentChanges {
-                
-                    print(doc.document.data())
-                
+            for doc in querySnapshot!.documents {
+                print(doc.data())
             }
             
-            
         }
-        // Remove snapshot listener after inittialzation
-        listener1.remove()
-        listener2.remove()
         
+        // Different types of queries
+        //reservations.whereField("name", notIn: ["Carol","Dave"])
+        //reservations.whereField("array", arrayContains: 1)
+        //reservations.whereField("array", arrayContainsAny: [1,2,3])
         
     }
+        
+//        // Get a document reference
+//
+//        let document = reservations.document("test123")
+//
+//
+//
+//        // Listening to update
+//
+//        // Add a snapshot listener
+//
+//        // Let listener1 and listener2 added  to be abel to remove them
+//
+//        let listener1 = document.addSnapshotListener { (docSnapshot, error ) in
+//
+//            // Chcek for errors as with other static reading
+//
+//
+//            // Data is recieved everytime there is change
+//
+//            print(docSnapshot?.data())
+//        }
+//        // Add a listener the the reservations collection
+//
+//        let listener2 = reservations.addSnapshotListener { (querySnapshot, error) in
+//
+//            // Chcek for errors as with other static reading
+//
+//
+//            // All Data is recieved everytime there is change
+//
+////            for doc in querySnapshot!.documents{
+////
+////                print(doc.data())
+//
+//                // Only changed data recieved
+//                for doc in querySnapshot!.documentChanges {
+//
+//                    print(doc.document.data())
+//
+//            }
+//
+//
+//        }
+//        // Remove snapshot listener after inittialzation
+//        listener1.remove()
+//        listener2.remove()
+//
+//
+//    }
 //        // Static reading
 //
 //        // Get the document's information from the database
