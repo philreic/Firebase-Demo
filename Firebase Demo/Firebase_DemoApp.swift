@@ -27,48 +27,93 @@ struct Firebase_DemoApp: App {
         
         let document = reservations.document("test123")
         
-        // Get the document's information from the database
-        document.getDocument { (docSnapshot,error) in
-            
-            // Check for an error and handle it appropriatly
-            if let error = error {
-                // Hnadle error
-                print(error.localizedDescription)
-                //
-            } else if let docSnapshot = docSnapshot {
-               print(docSnapshot.data())
-                print(docSnapshot.documentID)
-            } else {
-                // No data was returned handle it as needed
-            }
-        }
-       
-       // Get all document from a collection
-        reservations.getDocuments { (querySnapshot, error) in
-            // Check error
-            if let error = error {
-                // Handle error
-                
-            } else if let querySnapshot = querySnapshot {
-                
-                // Handle data
-                for doc in querySnapshot.documents {
-                   
-                    print(doc.documentID)
-                    
-                }
-                
-                
-            } else {
-                // No data was returned
-            }
-            
-            
-        }
+        // Listening to update
         
+        // Add a snapshot listener
+        
+        // Let listener1 and listener2 added  to be abel to remove them
+        
+        let listener1 = document.addSnapshotListener { (docSnapshot, error ) in
+            
+            // Chcek for errors as with other static reading
+            
+            
+            // Data is recieved everytime there is change
+            
+            print(docSnapshot?.data())
+        }
+        // Add a listener the the reservations collection
+        
+        let listener2 = reservations.addSnapshotListener { (querySnapshot, error) in
+            
+            // Chcek for errors as with other static reading
+            
+            
+            // All Data is recieved everytime there is change
+            
+//            for doc in querySnapshot!.documents{
+//
+//                print(doc.data())
+                
+                // Only changed data recieved
+                for doc in querySnapshot!.documentChanges {
+                
+                    print(doc.document.data())
+                
+            }
+            
+            
+        }
+        // Remove snapshot listener after inittialzation
+        listener1.remove()
+        listener2.remove()
         
         
     }
+//        // Static reading
+//
+//        // Get the document's information from the database
+//        document.getDocument { (docSnapshot,error) in
+//
+//            // Check for an error and handle it appropriatly
+//            if let error = error {
+//                // Hnadle error
+//                print(error.localizedDescription)
+//                //
+//            } else if let docSnapshot = docSnapshot {
+//               print(docSnapshot.data())
+//                print(docSnapshot.documentID)
+//            } else {
+//                // No data was returned handle it as needed
+//            }
+//        }
+//
+//       // Get all document from a collection
+//        reservations.getDocuments { (querySnapshot, error) in
+//            // Check error
+//            if let error = error {
+//                // Handle error
+//
+//            } else if let querySnapshot = querySnapshot {
+//
+//                // Handle data
+//                for doc in querySnapshot.documents {
+//
+//                    print(doc.documentID)
+//
+//                }
+//
+//
+//            } else {
+//                // No data was returned
+//            }
+//
+//
+//        }
+//
+//
+//
+//    }
         // Error Handling
 //        let doc = reservations.addDocument(data: [:]) {
 //            error in
