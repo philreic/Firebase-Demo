@@ -23,29 +23,47 @@ struct Firebase_DemoApp: App {
         
         let reservations = db.collection("reservations")
         
+        // Create a composition query to the database
         
-        // Query the database
+        let query = reservations
+            .whereField("name", in: ["Dave", "Sue"])
+            .whereField("people", isLessThan: 20)
         
-        let query = reservations.whereField("name", in: ["Carol", "Dave"])
-        
-        // Execute query
+        // Execute the query
         query.getDocuments { (querySnapshot, error) in
             
-            // Check for errors like before
+            // Check for error
+            if let querySnapshot = querySnapshot {
             
-            for doc in querySnapshot!.documents {
+            for doc in querySnapshot.documents {
                 print(doc.data())
             }
-            
+            }
         }
         
-        // Different types of queries
-        //reservations.whereField("name", notIn: ["Carol","Dave"])
-        //reservations.whereField("array", arrayContains: 1)
-        //reservations.whereField("array", arrayContainsAny: [1,2,3])
-        
     }
-        
+//        // Query the database
+//
+//        let query = reservations.whereField("name", in: ["Carol", "Dave"])
+//
+//        // Execute query
+//        query.getDocuments { (querySnapshot, error) in
+//
+//            // Check for errors like before
+//
+//            for doc in querySnapshot!.documents {
+//                print(doc.data())
+//            }
+//
+//        }
+//
+//        // Different types of queries
+//        //reservations.whereField("name", notIn: ["Carol","Dave"])
+//        //reservations.whereField("array", arrayContains: 1)
+//        //reservations.whereField("array", arrayContainsAny: [1,2,3])
+//
+//    }
+//
 //        // Get a document reference
 //
 //        let document = reservations.document("test123")
